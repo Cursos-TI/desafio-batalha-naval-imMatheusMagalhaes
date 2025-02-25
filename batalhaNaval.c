@@ -1,37 +1,37 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
 
+// Array para mapear letras de A a Z
 char alpha[26] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+// Função para simular um ataque em formato de cone
 int cone_attack(int water[10][10], int X, int Y)
 {
     for (int L = 0; L < 10; L++)
     {
         for (int C = 0; C < 10; C++)
         {
+            // Verifica se a posição atual está dentro do padrão de ataque em cone
             if (L == X - 1)
             {
                 if (C == Y)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X)
             {
                 if (C == Y - 1 || C == Y || C == Y + 1)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X + 1)
             {
                 if (C == Y - 1 || C == Y - 2 || C == Y || C == Y + 1 || C == Y + 2)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
         }
@@ -39,31 +39,33 @@ int cone_attack(int water[10][10], int X, int Y)
     }
 }
 
+// Função para simular um ataque em formato de octaedro
 int octa_attack(int water[10][10], int X, int Y)
 {
     for (int L = 0; L < 10; L++)
     {
         for (int C = 0; C < 10; C++)
         {
+            // Verifica se a posição atual está dentro do padrão de ataque em octaedro
             if (L == X - 1)
             {
                 if (C == Y)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X)
             {
                 if (C == Y - 1 || C == Y || C == Y + 1)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X + 1)
             {
                 if (C == Y)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
         }
@@ -71,31 +73,33 @@ int octa_attack(int water[10][10], int X, int Y)
     }
 }
 
+// Função para simular um ataque em formato de cruz
 int acros_attack(int water[10][10], int X, int Y)
 {
     for (int L = 0; L < 10; L++)
     {
         for (int C = 0; C < 10; C++)
         {
+            // Verifica se a posição atual está dentro do padrão de ataque em cruz
             if (L == X - 1)
             {
                 if (C == Y)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X)
             {
                 if (C == Y - 1 || C == Y - 2 || C == Y || C == Y + 1 || C == Y + 2)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
             if (L == X + 1)
             {
                 if (C == Y)
                 {
-                    water[L][C] = 1;
+                    water[L][C] = 1; // Marca a posição como atingida
                 }
             }
         }
@@ -103,6 +107,7 @@ int acros_attack(int water[10][10], int X, int Y)
     }
 }
 
+// Função para converter um caractere em um índice numérico (A=0, B=1, ..., Z=25)
 int char_to_int(char word)
 {
     int index;
@@ -116,95 +121,66 @@ int char_to_int(char word)
     return index;
 }
 
+// Função para exibir o tabuleiro
 int show(int water[10][10])
 {
-    system("clear");
+    system("clear"); // Limpa a tela do console (funciona em sistemas Unix-like)
     printf("  ");
     for (int i = 0; i < 10; i++)
     {
-        printf("%c ", alpha[i]);
+        printf("%c ", alpha[i]); // Exibe as letras das colunas
     }
     printf("\n");
     for (int i = 0; i < 10; i++)
     {
-        printf("%c ", alpha[i]);
+        printf("%c ", alpha[i]); // Exibe as letras das linhas
         for (int j = 0; j < 10; j++)
         {
             if (!water[i][j])
                 water[i][j] = 0;
-            printf("%d ", water[i][j]);
+            printf("%d ", water[i][j]); // Exibe o estado da posição no tabuleiro
         }
         printf("\n");
     }
 }
+
 int main()
 {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
     int attack;
-    int water[10][10] = {0};
+    int water[10][10] = {0}; // Inicializa o tabuleiro com 0 (água)
     do
     {
-        show(water);
+        show(water); // Exibe o tabuleiro atual
         printf("Escolha seu ataque: ");
         printf("1 - Cone, 2 - Octa, 3 - Cruz, 9 - SAIR\n");
-        scanf("%d", &attack);
+        scanf("%d", &attack); // Lê a escolha do ataque
 
         char X = 'A';
         char Y = 'B';
         printf("Onde atacar?\n");
         printf("Linha: ");
-        scanf(" %c", &X);
+        scanf(" %c", &X); // Lê a linha do ataque
         printf("Coluna: ");
-        scanf(" %c", &Y);
+        scanf(" %c", &Y); // Lê a coluna do ataque
 
         printf("\n\n");
 
         switch (attack)
         {
         case 1:
-            cone_attack(water, char_to_int(X), char_to_int(Y));
+            cone_attack(water, char_to_int(X), char_to_int(Y)); // Executa o ataque em cone
             break;
         case 2:
-            octa_attack(water, char_to_int(X), char_to_int(Y));
+            octa_attack(water, char_to_int(X), char_to_int(Y)); // Executa o ataque em octaedro
             break;
         case 3:
-            acros_attack(water, char_to_int(X), char_to_int(Y));
+            acros_attack(water, char_to_int(X), char_to_int(Y)); // Executa o ataque em cruz
             break;
 
         default:
             break;
         }
-    } while (attack != 9);
+    } while (attack != 9); // Repete até que o usuário escolha sair
 
     return 0;
 }
